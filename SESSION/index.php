@@ -1,8 +1,12 @@
 <?php
+require_once("uuid.php");
+$uuid = gen_uuid();
+session_id($uuid);
 session_start();
 $_SESSION["username"] = "Alex";
+$_SESSION["sid"] = $uuid;
 
-print_r($_SESSION["username"]);
+echo "<br>";
 echo "<br>";
 
 ?>

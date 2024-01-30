@@ -27,7 +27,7 @@ echo $component2;
 
 
 <?php
-function gen_list(array $array)
+function gen_list(array $array): string
 {
 
 
