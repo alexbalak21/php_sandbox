@@ -7,12 +7,13 @@ include "conncetion.php";
  *
  * @param string $url The URL for the article's page.
  * @param string $title The title of the article.
+ * @param string $short A short summary of the article.
  * @param array $contents An array of strings representing the article's content.
  * @param array $keywords An array of keywords related to the article.
  *
  * @return bool True on successful insertion, False otherwise.
  */
-function create_entry($url = "", $title = "", $contents = [], $keywords = [])
+function create_entry($url = "", $title = "", $short = "", $contents = [], $keywords = [])
 {
     $conn = connect_db();
     if ($conn === null) {
@@ -28,12 +29,13 @@ function create_entry($url = "", $title = "", $contents = [], $keywords = [])
     $content = join(" ", $contents);
     $keywordsJson = json_encode($keywords);
 
-    $sql = "INSERT INTO articles (page_url, title, content, keywords) VALUES (:url, :title, :content, :keywords)";
+    $sql = "INSERT INTO articles (page_url, title, short, content, keywords) VALUES (:url, :title, :short, :content, :keywords)";
 
     $stmt = $conn->prepare($sql);
 
     $stmt->bindParam(':url', $url);
     $stmt->bindParam(':title', $title);
+    $stmt->bindParam(':short', $short);
     $stmt->bindParam(':content', $content);
     $stmt->bindParam(':keywords', $keywordsJson);
 
@@ -50,14 +52,15 @@ function create_entry($url = "", $title = "", $contents = [], $keywords = [])
  * Updates an existing entry in the articles table.
  *
  * @param int $id The ID of the article to update.
- * @param string $url The new URL for the article's page.
- * @param string $title The new title for the article.
+ * @param string $url The updated URL for the article's page.
+ * @param string $title The updated title for the article.
+ * @param string $short The updated short summary.
  * @param array $contents An array of strings representing the updated content.
  * @param array $keywords An array of updated keywords.
  *
  * @return bool True on successful update, False otherwise.
  */
-function update_entry($id, $url = "", $title = "", $contents = [], $keywords = [])
+function update_entry($id, $url = "", $title = "", $short = "", $contents = [], $keywords = [])
 {
     $conn = connect_db();
     if ($conn === null) {
@@ -73,7 +76,7 @@ function update_entry($id, $url = "", $title = "", $contents = [], $keywords = [
     $keywordsJson = json_encode($keywords);
 
     $sql = "UPDATE articles 
-            SET page_url = :url, title = :title, content = :content, keywords = :keywords
+            SET page_url = :url, title = :title, short = :short, content = :content, keywords = :keywords
             WHERE id = :id";
 
     $stmt = $conn->prepare($sql);
@@ -81,6 +84,7 @@ function update_entry($id, $url = "", $title = "", $contents = [], $keywords = [
     $stmt->bindParam(':id', $id);
     $stmt->bindParam(':url', $url);
     $stmt->bindParam(':title', $title);
+    $stmt->bindParam(':short', $short);
     $stmt->bindParam(':content', $content);
     $stmt->bindParam(':keywords', $keywordsJson);
 
@@ -148,3 +152,15 @@ function read_entries()
 
     return $data;
 }
+
+
+// Call the create_entry function with sample data
+$successful = create_entry(
+    "http://example.com/sample-article", // URL
+    "Sample Article",                    // Title
+    "This is a short summary.",          // Short description
+    ["This is the content of the article."], // Content as an array
+    ["sample", "article", "test"]             // Keywords as an array
+);
+
+echo "<div><h1>$successful</h1></div>";

@@ -67,8 +67,9 @@ SELECT * FROM `keywords` WHERE title LIKE 'let' OR description LIKE 'let' OR JSO
 
   CREATE TABLE articles (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  page_url TEXT,
+  page_url VARCHAR(255),
   title VARCHAR(255),
+  short VARCHAR(255),
   content TEXT,
   keywords JSON
 );
