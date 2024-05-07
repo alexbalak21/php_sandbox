@@ -10,6 +10,7 @@ $test = "Test inner content";
 <?php
 $component2 = <<<COMP
 <h2>$test</h2>
+<h3>TEST</h3>
 <div>
 
 </div>

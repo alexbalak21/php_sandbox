@@ -1,13 +1,5 @@
 <?php
-require_once("uuid.php");
-$uuid = gen_uuid();
-session_id($uuid);
-session_start();
-$_SESSION["username"] = "Alex";
-$_SESSION["sid"] = $uuid;
-
-echo "<br>";
-echo "<br>";
+require_once "session.php";
 
 ?>
 
@@ -24,6 +16,8 @@ echo "<br>";
     <h1>Index</h1>
     <a href="index.php">Index</a>
     <a href="page.php">Page</a>
+    <h3><?= session_id() ?></h3>
+
 
 </body>
 
