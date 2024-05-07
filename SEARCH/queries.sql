@@ -7,7 +7,8 @@ USE search;
 CREATE TABLE articles (
   id INT AUTO_INCREMENT PRIMARY KEY,
   title VARCHAR(255),
-  content TEXT
+  content TEXT,
+  keywords JSON
 );
 
 -- Insert some sample data
@@ -33,3 +34,45 @@ INSERT INTO articles (title, content) VALUES
   ('PHP Frameworks Overview', 'A look at popular PHP frameworks like Laravel and Symfony.'),
   ('Unit Testing in PHP', 'An introduction to unit testing and PHPUnit for PHP applications.'),
   ('Working with JSON in PHP', 'How to work with JSON data in PHP and use it for API communication.');
+
+
+
+
+INSERT INTO `keywords` (title, keywrds) VALUES ("JavaScript", '["var", "let", "const", "function", "return", "if", "else", "switch", "case", "break", "continue", "for", "while", "do", "try", "catch", "throw", "class", "extends", "import", "export", "new", "this", "super", "yield", "await", "async",]');
+INSERT INTO `keywords` (keywrds) VALUES ('["var", "let", "const", "function", "return", "if", "else", "switch", "case", "break", "continue", "for", "while", "do", "try", "catch", "throw", "class", "extends", "import", "export", "new", "this", "super", "yield", "await", "async",]');
+INSERT INTO keywords (title, content, keywrds)
+VALUES (
+  'JavaScript Basics',
+  'Introduction to JavaScript',
+  JSON_ARRAY('var', 'let', 'const', 'function', 'return')
+);
+
+INSERT INTO keywords (title, content, keywrds)
+VALUES (
+  'Python Fundamentals',
+  'Learning Python basics',
+  '[ "def", "return", "if", "else", "for" ]'
+);
+
+SELECT * FROM keywords WHERE keywrds LIKE 'let';
+
+UPDATE example_table
+SET data = JSON_ARRAY_APPEND(data, '$', 'four')
+WHERE id = 1;
+
+UPDATE keywords SET keywrds = JSON_ARRAY_APPEND(keywrds, '$', 'case') WHERE id=1;
+
+SELECT * FROM `keywords` WHERE title LIKE 'let' OR description LIKE 'let' OR JSON_CONTAINS(keywrds, 'let');
+
+
+  CREATE TABLE articles (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  page_url TEXT,
+  title VARCHAR(255),
+  content TEXT,
+  keywords JSON
+);
+
+
+
+INSERT INTO articles (page_url, title, content, keywords) VALUES  ('php.com', 'Learning PHP', 'Introduction to PHP programming.', JSON_ARRAY('PHP', 'programming', 'backend'))

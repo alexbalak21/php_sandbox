@@ -1,6 +1,14 @@
 <?php
 include "conncetion.php";
 
+$sql = "
+  SELECT *
+  FROM articles
+  WHERE title LIKE :search_term
+    OR 'description' LIKE :search_term
+    OR JSON_CONTAINS(keywords, :json_search_term)
+";
+
 $search_term = isset($_GET['q']) ? trim($_GET['q']) : '';
 
 $results = [];
@@ -9,8 +17,11 @@ $pdo = connect_db();
 $results = [];
 if ($search_term !== '') {
     // Prepare a SQL query with a LIKE clause
-    $stmt = $pdo->prepare("SELECT * FROM articles WHERE title LIKE :search_term OR content LIKE :search_term");
-    $stmt->execute([':search_term' => '%' . $search_term . '%']);
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([
+        ':search_term' => '%' . $search_term . '%',
+        ':json_search_term' => json_encode($search_term)
+    ]);
 
     // Fetch all results that match the search term
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
