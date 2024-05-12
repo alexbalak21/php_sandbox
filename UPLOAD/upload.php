@@ -1,35 +1,50 @@
 <?php
-$targetDir = "uploads/"; // Directory where uploaded files will be stored
-$targetFile = $targetDir . basename($_FILES["fileToUpload"]["name"]);
-$uploadOk = 1;
-$size = 5 * 1024 * 1024 * 1024; //5 GB
+require_once 'crud.php';
 
-// Check if file is an actual file or fake file
-if (isset($_POST["submit"])) {
-    $uploadOk = 1; // Set upload flag to true
+// Function to generate a unique filename
+function generate_unique_filename($filename) {
+    $extension = pathinfo($filename, PATHINFO_EXTENSION);
+    $unique_string = uniqid('', true) . microtime(true);
+    $hashed_string = md5($unique_string);
+    return $hashed_string . '.' . $extension;
 }
 
-// Check if file already exists
-if (file_exists($targetFile)) {
-    echo "Sorry, file already exists.";
-    $uploadOk = 0;
-}
+// Function to handle file upload
+function handle_file_upload() {
+    $domain = '';
+    $targetDir = "uploads/";
+    $size = 5 * 1024 * 1024 * 1024; // 5 GB
 
-// Check file size
-if ($_FILES["fileToUpload"]["size"] > $size) {
-    echo "Sorry, your file is too large.";
-    $uploadOk = 0;
-}
+    // Check if file is uploaded
+    if (!isset($_FILES["fileToUpload"]) || !is_uploaded_file($_FILES["fileToUpload"]["tmp_name"])) {
+        return "No file uploaded or invalid file.";
+    }
 
-// Check if $uploadOk is set to 0 by an error
-if ($uploadOk == 0) {
-    echo "Sorry, your file was not uploaded.";
-// If everything is ok, try to upload file
-} else {
-    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $targetFile)) {
-        echo "The file " . basename($_FILES["fileToUpload"]["name"]) . " has been uploaded.";
+    $filename = $_FILES["fileToUpload"]["name"];
+    $unique_filename = generate_unique_filename($filename);
+    $targetFile = $targetDir . $unique_filename;
+
+    // Check file size
+    if ($_FILES["fileToUpload"]["size"] > $size) {
+        return "Sorry, your file is too large.";
+    }
+
+    // Try to upload the file
+    if (!move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $targetFile)) {
+        return "Sorry, there was an error uploading your file.";
+    }
+
+    $url = $domain . $targetFile;
+    $category = $_POST['category'] ?? null;
+
+    // Insert file URL into database
+    if (insert_file_url($_POST['name'], $url, $category)) {
+        return "" . $_POST['name'] . " has been uploaded.";
     } else {
-        echo "Sorry, there was an error uploading your file.";
+        return "Failed to insert file URL into database.";
     }
 }
+
+// Handle file upload and display result
+echo handle_file_upload();
 ?>

@@ -8,24 +8,19 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("uploadForm").addEventListener("submit", function (e) {
     e.preventDefault()
     const formData = new FormData(this)
-    let newFileName = document.getElementById("newFileName").value.trim()
-
+    const inputName = document.getElementById("name").value.trim()
     const fileInput = document.getElementById("fileToUpload")
     const file = fileInput.files[0]
     const fileNameParts = file.name.split(".")
     const fileExtension = fileNameParts.pop()
     const originalFileName = fileNameParts.join(".")
-
-    // If new file name is empty, keep the original file name
-    if (!newFileName) {
-      newFileName = originalFileName
-    }
-
-    formData.append("fileToUpload", file, newFileName + "." + fileExtension)
+    const name = inputName !== "" ? inputName : originalFileName
+    formData.set("name", name)
+    formData.append("fileToUpload", file, name + "." + fileExtension)
 
     // Reset output
     output.innerText = ""
-    output.classList.remove("text-danger")
+    output.setAttribute("class", "")
 
     xhr = new XMLHttpRequest()
     xhr.open("POST", "upload.php")
@@ -74,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Reset output when a new file is selected
   document.getElementById("fileToUpload").addEventListener("change", function () {
     output.innerText = ""
-    output.classList.remove("text-danger")
+    output.setAttribute("class", "")
     progressBar.style.width = "0%"
     progressText.textContent = "0%"
     progressBar.classList.remove("bg-danger")
