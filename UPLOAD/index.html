@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload</title>
+    <!-- Your local Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- Your local Bootstrap Bundle with Popper -->
+    <script src="js/bootstrap.bundle.min.js" defer></script>
+    <script src="js/main.js" defer></script>
+    
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title">Upload File</h2>
+                        <form id="uploadForm" action="upload.php" method="post" enctype="multipart/form-data">
+                            <div class="mb-3">
+                                <label for="fileToUpload" class="form-label">Choose File</label>
+                                <input class="form-control" type="file" name="fileToUpload" id="fileToUpload">
+                            </div>
+                            <div class="mb-3">
+                                <label for="newFileName" class="form-label">New File Name</label>
+                                <input class="form-control" type="text" name="newFileName" id="newFileName">
+                            </div>
+                            <h5 class="text-center" id="output"></h5>
+                            <div class="progress mb-3">
+                                <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="progressBar"></div>
+                            </div>
+                            <h5 id="progressText" class="text-center">0%</h5>
+                          
+                            <button type="submit" class="btn btn-primary">Upload</button>
+                            <button type="button" class="btn btn-danger" id="cancelButton">Cancel</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
