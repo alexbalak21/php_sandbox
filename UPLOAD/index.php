@@ -1,12 +1,13 @@
 <?php
 require_once "crud.php";
 include_once "./table.php";
-  $files = read_all_files();
-  $categories = read_categories();
+$files = read_all_files();
+$categories = read_categories();
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,6 +16,7 @@ include_once "./table.php";
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/index.css">
 </head>
+
 <body>
     <div class="container">
         <div class="row justify-content-center mt-5">
@@ -59,10 +61,11 @@ include_once "./table.php";
 
     <div class="container my-5"><?= gen_table($files, $categories); ?></div>
 
-   
+
     </div>
     <!-- Your local Bootstrap Bundle with Popper -->
     <script src="js/bootstrap.bundle.min.js" defer></script>
     <script src="js/main.js" defer></script>
 </body>
+
 </html>
