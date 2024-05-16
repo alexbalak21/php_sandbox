@@ -5,16 +5,14 @@ $sql = "
   SELECT *
   FROM articles
   WHERE title LIKE :search_term
-    OR 'description' LIKE :search_term
+    OR 'content' LIKE :search_term
     OR JSON_CONTAINS(keywords, :json_search_term)
 ";
 
 $search_term = isset($_GET['q']) ? trim($_GET['q']) : '';
 
 $results = [];
-
 $pdo = connect_db();
-$results = [];
 if ($search_term !== '') {
     // Prepare a SQL query with a LIKE clause
     $stmt = $pdo->prepare($sql);
@@ -47,6 +45,7 @@ if ($search_term !== '') {
                 <li>
                     <strong><?php echo htmlspecialchars($row['title']); ?></strong>:
                     <?php echo htmlspecialchars($row['content']); ?>
+                    <?= $row['keywords'] ?>
                 </li>
             <?php endforeach; ?>
         </ul>
