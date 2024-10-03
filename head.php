@@ -16,3 +16,6 @@ $json .= "}";
 // echo $json;
 $auth = array("Authorization" => $authorization);
 echo json_encode($auth);
+
+
+print_r($_POST);

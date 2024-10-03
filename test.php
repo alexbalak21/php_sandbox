@@ -1,10 +1,8 @@
 <?php
-$key = "Username";
-$value = "Alex";
+print_r($_POST);
+?>
 
-echo <<<END
-{
-    "$key":"$value" 
-
-}
-END;
+<form action="test.php" method="POST">
+    <input type="hidden" name="id" value="1">
+    <button>Delete</button>
+</form>
