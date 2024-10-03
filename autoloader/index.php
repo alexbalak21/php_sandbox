@@ -1,9 +1,11 @@
 <?php
 require_once "autoload.php";
 
+use controller as c;
+use model as m;
 
-$userModel = new model\User();
+$userModel = new m\User();
 $userModel->sayHello();
 
-$userController = new controller\User();
+$userController = new c\User();
 $userController->sayHello();
