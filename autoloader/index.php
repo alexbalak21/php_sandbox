@@ -1,6 +1,6 @@
 <?php
-// require_once "autoloader.php";
-require_once "auto_loader.php";
+require_once "autoload.php";
+
 
 $userModel = new model\User();
 $userModel->sayHello();
