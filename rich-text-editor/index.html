@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rich Code Editor with Image Paste</title>
+    <style>
+      #editor {
+        width: 100%;
+        height: 500px;
+        border: 1px solid #ccc;
+        padding: 10px;
+        font-family: "Courier New", Courier, monospace;
+        overflow: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="editor" contenteditable="true"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/codemirror.min.js"></script>
+    <script>
+      const editor = document.getElementById("editor")
+
+      editor.addEventListener("paste", (event) => {
+        event.preventDefault()
+        const items = event.clipboardData.items
+        let isImage = false
+
+        for (let i = 0; i < items.length; i++) {
+          if (items[i].type.startsWith("image/")) {
+            isImage = true
+            const blob = items[i].getAsFile()
+            const reader = new FileReader()
+            reader.onload = (e) => {
+              const img = document.createElement("img")
+              img.src = e.target.result
+              editor.appendChild(img)
+            }
+            reader.readAsDataURL(blob)
+          }
+        }
+
+        if (!isImage) {
+          const text = event.clipboardData.getData("text/plain")
+          document.execCommand("insertText", false, text)
+        }
+      })
+    </script>
+  </body>
+</html>
