@@ -17,7 +17,6 @@
   </head>
   <body>
     <div id="editor" contenteditable="true"></div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.0/codemirror.min.js"></script>
     <script>
       const editor = document.getElementById("editor")
 
@@ -35,6 +34,9 @@
               const img = document.createElement("img")
               img.src = e.target.result
               editor.appendChild(img)
+
+              // Call the function to upload the image
+              uploadImage(blob)
             }
             reader.readAsDataURL(blob)
           }
@@ -45,6 +47,23 @@
           document.execCommand("insertText", false, text)
         }
       })
+
+      function uploadImage(blob) {
+        const formData = new FormData()
+        formData.append("file", blob, "pasted-image.png")
+
+        fetch("/upload", {
+          method: "POST",
+          body: formData,
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Image uploaded successfully:", data)
+          })
+          .catch((error) => {
+            console.error("Error uploading image:", error)
+          })
+      }
     </script>
   </body>
 </html>
