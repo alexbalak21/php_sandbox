@@ -47,6 +47,9 @@
               const img = document.createElement("img")
               img.src = e.target.result
               editor.appendChild(img)
+
+              // Save the Blob in the editor dataset for later use
+              editor.dataset.imgBlob = reader.result
             }
             reader.readAsDataURL(blob)
           }
@@ -60,17 +63,22 @@
 
       saveButton.addEventListener("click", () => {
         const content = editor.innerHTML
-        uploadContent(content)
+        const imgBlob = editor.dataset.imgBlob
+        const data = {
+          text: content,
+          img: imgBlob,
+        }
+        uploadContent(JSON.stringify(data))
       })
 
-      function uploadContent(content) {
+      function uploadContent(data) {
         console.log("Upload content")
-        const formData = new FormData()
-        formData.append("content", content)
-
-        fetch("/upload", {
+        fetch("/upload.php", {
           method: "POST",
-          body: formData,
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: data,
         })
           .then((response) => response.json())
           .then((data) => {
