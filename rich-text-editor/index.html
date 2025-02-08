@@ -41,26 +41,30 @@
         },
       })
 
+      // Add listener for saving the content
       const saveButton = document.getElementById("saveButton")
 
       saveButton.addEventListener("click", () => {
         const editorContent = quill.getContents() // Get the content in Delta format
         const htmlContent = quill.root.innerHTML // Get the content as HTML
 
-        // Parse and log image URLs
+        // Parse and replace images with in-memory URLs
         const parser = new DOMParser()
         const doc = parser.parseFromString(htmlContent, "text/html")
         const images = doc.querySelectorAll("img")
 
         images.forEach((img) => {
-          console.log("Image URL:", img.src) // Log the image URL to the console
+          img.src = img.src // Ensure the src is a data URL
         })
 
-        uploadContent(editorContent)
+        const finalContent = {
+          delta: editorContent,
+          html: doc.body.innerHTML,
+        }
+        uploadContent(finalContent)
       })
 
       function uploadContent(content) {
-        console.log("Upload content")
         fetch("/upload.php", {
           method: "POST",
           headers: {
