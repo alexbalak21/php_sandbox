@@ -6,7 +6,7 @@
     <title>Rich Code Editor with Image Paste</title>
     <style>
       #editor {
-        width: 100%;
+        width: 98vw;
         height: 500px;
         border: 1px solid #ccc;
         padding: 10px;
@@ -49,6 +49,7 @@
       })
 
       function uploadImage(blob) {
+        console.log("Upload")
         const formData = new FormData()
         formData.append("file", blob, "pasted-image.png")
 
