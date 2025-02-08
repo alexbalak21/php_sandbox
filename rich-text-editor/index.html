@@ -4,9 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rich Text Editor with Quill</title>
-    <!-- Include Quill CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
-
+    <!-- Include Quill libraries -->
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet" />
+    <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
     <style>
       #editor-container {
         height: 300px;
@@ -28,8 +28,6 @@
     <!-- Create the editor container -->
     <div id="editor-container"></div>
     <button id="saveButton">Save</button>
-    <!-- Include Quill JS -->
-    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
     <script>
       // Initialize Quill editor
       var quill = new Quill("#editor-container", {
@@ -46,18 +44,29 @@
       const saveButton = document.getElementById("saveButton")
 
       saveButton.addEventListener("click", () => {
-        const editorContent = quill.root.innerHTML
+        const editorContent = quill.getContents() // Get the content in Delta format
+        const htmlContent = quill.root.innerHTML // Get the content as HTML
+
+        // Parse and log image URLs
+        const parser = new DOMParser()
+        const doc = parser.parseFromString(htmlContent, "text/html")
+        const images = doc.querySelectorAll("img")
+
+        images.forEach((img) => {
+          console.log("Image URL:", img.src) // Log the image URL to the console
+        })
+
         uploadContent(editorContent)
       })
 
       function uploadContent(content) {
-        console.log(content)
-        const formData = new FormData()
-        formData.append("content", content)
-
+        console.log("Upload content")
         fetch("/upload.php", {
           method: "POST",
-          body: formData,
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({content: content}),
         })
           .then((response) => response.json())
           .then((data) => {
