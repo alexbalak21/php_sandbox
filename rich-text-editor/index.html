@@ -3,15 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Rich Code Editor with Image Paste</title>
+    <title>Rich Text Editor with Quill</title>
+    <!-- Include Quill CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet" />
+
     <style>
-      #editor {
-        width: 98vw;
-        height: 500px;
-        border: 1px solid #ccc;
-        padding: 10px;
-        font-family: "Courier New", Courier, monospace;
-        overflow: auto;
+      #editor-container {
+        height: 300px;
       }
       #saveButton {
         margin-top: 10px;
@@ -27,58 +25,39 @@
     </style>
   </head>
   <body>
-    <div id="editor" contenteditable="true"></div>
+    <!-- Create the editor container -->
+    <div id="editor-container"></div>
     <button id="saveButton">Save</button>
+    <!-- Include Quill JS -->
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
     <script>
-      const editor = document.getElementById("editor")
+      // Initialize Quill editor
+      var quill = new Quill("#editor-container", {
+        theme: "snow",
+        modules: {
+          toolbar: [
+            [{header: [1, 2, false]}],
+            ["bold", "italic", "underline"],
+            ["image", "code-block"],
+          ],
+        },
+      })
+
       const saveButton = document.getElementById("saveButton")
 
-      editor.addEventListener("paste", (event) => {
-        event.preventDefault()
-        const items = event.clipboardData.items
-        let isImage = false
-
-        for (let i = 0; i < items.length; i++) {
-          if (items[i].type.startsWith("image/")) {
-            isImage = true
-            const blob = items[i].getAsFile()
-            const reader = new FileReader()
-            reader.onload = (e) => {
-              const img = document.createElement("img")
-              img.src = e.target.result
-              editor.appendChild(img)
-
-              // Save the Blob in the editor dataset for later use
-              editor.dataset.imgBlob = reader.result
-            }
-            reader.readAsDataURL(blob)
-          }
-        }
-
-        if (!isImage) {
-          const text = event.clipboardData.getData("text/plain")
-          document.execCommand("insertText", false, text)
-        }
-      })
-
       saveButton.addEventListener("click", () => {
-        const content = editor.innerHTML
-        const imgBlob = editor.dataset.imgBlob
-        const data = {
-          text: content,
-          img: imgBlob,
-        }
-        uploadContent(JSON.stringify(data))
+        const editorContent = quill.root.innerHTML
+        uploadContent(editorContent)
       })
 
-      function uploadContent(data) {
-        console.log("Upload content")
+      function uploadContent(content) {
+        console.log(content)
+        const formData = new FormData()
+        formData.append("content", content)
+
         fetch("/upload.php", {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: data,
+          body: formData,
         })
           .then((response) => response.json())
           .then((data) => {
