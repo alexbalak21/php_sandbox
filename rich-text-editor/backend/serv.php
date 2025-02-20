@@ -1,13 +1,15 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  $editorContent = $_POST['editor-content'];
-  // Process the content, e.g., save to a database or file
-  
-  echo "<h3>Raw Content</h3>" . htmlspecialchars($editorContent) . "<hr>" ;
+  $editorText = $_POST['editor-text'];
+  $editorImages = json_decode($_POST['editor-images'], true);
 
-  echo "<h3>Html Content</h3>" . $editorContent;
-}
-else{
-  echo "<h3>Band Request</h3>";
+  // Process the text content
+  echo "Text content received: " . htmlspecialchars($editorText) . "<br>";
+
+  // Process the images
+  echo "Images received:<br>";
+  foreach ($editorImages as $image) {
+    echo '<img src="' . htmlspecialchars($image) . '" alt="Image"><br>';
+  }
 }
 ?>

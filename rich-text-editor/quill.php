@@ -9,7 +9,7 @@
 </head>
 <body>
   <div id="editor"></div>
-  <form id="editor-form" method="POST" action="http://localhost:3000/rich-text-editor/backend/serv.php">
+  <form id="editor-form" method="POST" action="">
     <input type="hidden" name="editor-content" id="editor-content">
     <button type="submit">Submit</button>
   </form>
