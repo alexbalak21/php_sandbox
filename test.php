@@ -1,8 +1,6 @@
 <?php
-print_r($_POST);
-?>
+$v = null ?? "hello";
 
-<form action="test.php" method="POST">
-    <input type="hidden" name="id" value="1">
-    <button>Delete</button>
-</form>
+printf($v);
+
+?>
