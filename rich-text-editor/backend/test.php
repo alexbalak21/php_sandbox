@@ -1,10 +1,15 @@
-<?php
-$arr = [];
+<style>
+.image-placeholder {
+    width: 150px;
+    height: 150px;
+    background-color: #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+}
+</style>
 
-$arr[] = 'a';
-$arr[] = 'b';
-$arr[] = 'a';
-
-print_r($arr);
-
-?>
+<img class="placeholder" src="" alt="">
