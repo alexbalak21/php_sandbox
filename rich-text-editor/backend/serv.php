@@ -44,7 +44,6 @@ function save_img_to_db($imageType, $base64Data) {
 }
 
 
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $editor_content = parse_content_save_img($_POST['editor-content'] ?? '');
   $id = save_content($editor_content);
