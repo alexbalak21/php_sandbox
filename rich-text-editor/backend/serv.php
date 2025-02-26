@@ -8,9 +8,10 @@ function parse_content_save_img($content) {
   // Load the HTML content into a DOMDocument
   $dom = new DOMDocument();
   @$dom->loadHTML($content);
-
+  $images = $dom->getElementsByTagName('img');
+  if ($images->length === 0) return $content;
   // Extract image data and replace src with image ID
-  foreach ($dom->getElementsByTagName('img') as $img) {
+  foreach ($images as $img) {
     $src = $img->getAttribute('src');
     if (preg_match('/^data:(image\/\w+);base64,/', $src, $matches)) {
       $imageType = $matches[1]; // Extract the image type
