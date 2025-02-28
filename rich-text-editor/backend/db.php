@@ -1,8 +1,14 @@
 <?php
-$dbname='base';
-if(!class_exists('SQLite3'))
-  die("SQLite 3 NOT supported.");
+$servername = "localhost";
+$username = "backend";
+$password = "Azerty1239*";
+$dbname = "notes";
 
-$base=new SQLite3($dbname, 0666);
-echo "SQLite 3 supported."; 
-?>
+// Create connection
+$db = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($db->connect_error) {
+  die("Connection failed: " . $db->connect_error);
+}
+echo "Connected successfully";

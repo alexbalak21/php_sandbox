@@ -1,24 +1,43 @@
 <?php
-// Create (connect to) SQLite database in file
-$db = new SQLite3('uploads.db');
 
-// Create a table if it doesn't exist already
-$db->exec("CREATE TABLE IF NOT EXISTS uploads (id INTEGER PRIMARY KEY, content TEXT)");
-
-// Handle the upload POST request
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $input = json_decode(file_get_contents('php://input'), true);
-    $content = json_encode($input['content']); // Convert the content to JSON string
-
-    $stmt = $db->prepare('INSERT INTO uploads (content) VALUES (:content)');
-    $stmt->bindValue(':content', $content, SQLITE3_TEXT);
-
-    if ($stmt->execute()) {
-        echo json_encode(['message' => 'Content uploaded successfully!', 'id' => $db->lastInsertRowID()]);
-    } else {
-        echo json_encode(['error' => 'Error inserting content.']);
+function parse_content_save_img(int $note_id = 0, string $content) : string {
+  if (empty($content)) return "";
+  // Load the HTML content into a DOMDocument with UTF-8 encoding
+  $dom = new DOMDocument();
+  @$dom->loadHTML($content);
+  $images = $dom->getElementsByTagName('img');
+  // if ($images->length === 0) return $content;
+  // Extract image data and replace src with image ID
+  foreach ($images as $img) {
+    $src = $img->getAttribute('src');
+    if (preg_match('/^data:(image\/\w+);base64,/', $src, $matches)) {
+      $imageType = $matches[1]; // Extract the image type
+      $base64Data = substr($src, strpos($src, ',') + 1); // Extract the base64 data
+      // $imageId = save_img_to_db($note_id, $imageType, $base64Data);
+      // Replace the src attribute with the image ID
+      // $img->setAttribute('src', "id=$imageId");
     }
-} else {
-    echo json_encode(['error' => 'Invalid request method.']);
+  }
+  // Extract raw text without HTML tags
+  $xpath = new DOMXPath($dom);
+  $rawText = $xpath->evaluate("string(//body)");
+  // Convert the raw text to UTF-8 encoding
+  $rawText = iconv('UTF-8', 'ISO-8859-1' . '//IGNORE', $rawText);
+  echo $rawText;
+  return $dom->saveHTML();
 }
 ?>
+
+
+  <?php
+  
+  $editorContent = '';
+if ($_SERVER["REQUEST_METHOD"] == "POST")
+  $editorContent = $_POST['editor-content'];
+  // Process the content, e.g., save to a database or file
+echo htmlspecialchars($editorContent);
+echo "<hr>";
+parse_content_save_img(0, $editorContent);
+
+  ?>
+  
