@@ -1,12 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <img src="home.png" data-img="" alt="">
-    
-</body>
-</html>
+<?php
+$test = "TEST";
+
+function do_something(){
+    global $test;
+    echo $test;
+}
+
+?>
