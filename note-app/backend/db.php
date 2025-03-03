@@ -33,5 +33,4 @@ class DB {
     }
 }
 
-return new DB();
 ?>
