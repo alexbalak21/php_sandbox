@@ -1,49 +1,10 @@
 <?php
-$req_uri = parse_url($_SERVER['REQUEST_URI'])['path'];
+require_once "Rooter.php";
 
-// $req_uri = substr($req_uri, -1) == '/' ? substr_replace($req_uri, "", -1) : $req_uri;
+$rooter = new Rooter();
 
-//REQUETS PARAMETERS
-// $_REQUEST
-
-echo "
-<h1>INDEX</h1>
-<h3>$req_uri</h3>
-";
-
-switch ($req_uri) {
-    case '/':
-    case '/home':
-        require_once "./views/home.php";
-        break;
-
-    case '/post':
-        require_once "./views/post.php";
-        break;
-
-    case '/user':
-        require_once "./views/user.php";
-        break;
-
-    case '/about':
-        require_once "./views/about.php";
-        break;
-
-    case '/version':
-        require_once "./views/version.php";
-        break;
-
-    case '/resetpass':
-        require_once "./views/resetpass.php";
-        break;
-
-    default:
-        require_once "./views/404.php";
-        break;
-}
+$rooter->GET('/ROUTER/', function($request, $response) {
+    $response->Body("GET request to " . $request->uri);
+    $response->send();
+});
 ?>
-
-<h3>URLS</h3>
-<pre>
-    <?php print_r(parse_url($_SERVER['REQUEST_URI'])) ?>
-</pre>

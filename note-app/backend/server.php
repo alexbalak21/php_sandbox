@@ -14,26 +14,36 @@ function serve(){
 }
 
 
-function save_note(){
-  global $DB;
-  $content = $_POST['editor-content'] ?? '';
-  $title = $_POST['title'] ?? 'Unnamed note';
-  if ($content) return "Can not save empty note";
-  $note_id = $DB->init_note($title);
-  $dom = new DOMDocument();
-  @$dom->loadHTML($content);
-  $images = $dom->getElementsByTagName('img');
-  if ($images->length > 0) 
-    foreach ($images as $img) {
-      $src = $img->getAttribute('src');
-      if (preg_match('/^data:(image\/\w+);base64,/', $src, $matches)) {
-        $imageType = $matches[1]; // Extract the image type
-        $base64Data = substr($src, strpos($src, ',') + 1); // Extract the base64 data
-        // $imageId = save_img_to_db($note_id, $imageType, $base64Data);
-        // Replace the src attribute with the image ID
-        // $img->setAttribute('src', "id=$imageId");
-      }
-}
+function save_note() {
+    global $DB;
+    $content = $_POST['editor-content'] ?? '';
+    $title = $_POST['title'] ?? 'Unnamed note';
+    if (empty($content)) return "Cannot save empty note";
+
+    $note_id = $DB->init_note($title);
+    $dom = new DOMDocument();
+    @$dom->loadHTML($content);
+    $images = $dom->getElementsByTagName('img');
+
+    if ($images->length > 0) {
+        foreach ($images as $img) {
+            $src = $img->getAttribute('src');
+            if (preg_match('/^data:(image\/\w+);base64,/', $src, $matches)) {
+                $imageType = $matches[1]; // Extract the image type
+                $base64Data = substr($src, strpos($src, ',') + 1); // Extract the base64 data
+                $imageId = $DB->save_img_to_db($note_id, $imageType, $base64Data); // Save the image to the database
+                // Replace the src attribute with an empty string and add data-id attribute
+                $img->setAttribute('src', '');
+                $img->setAttribute('data-id', $imageId);
+            }
+        }
+    }
+
+    // Save the modified content back to the note
+    $content = $dom->saveHTML();
+    $DB->save_content($note_id, $content);
+
+    return "Note saved successfully";
 }
 
 function parse_content_save_img(int $note_id = 0, string $content) : string {
@@ -68,7 +78,4 @@ function extract_raw_text($html_content) : string {
   return $rawText;
 }
 
-$id = $db->init_note("test");
-
-echo $id;
 ?>
