@@ -1,10 +1,12 @@
 <?php
-require_once "Rooter.php";
+require_once "Router.php";
 
-$rooter = new Rooter();
 
-$rooter->GET('/ROUTER/', function($request, $response) {
-    $response->Body("GET request to " . $request->uri);
+define('BASE_URI', '/' . basename(__DIR__) . '/');
+$Router = new Router();
+
+$Router->GET('/ROUTER/', function($request, $response) {
+    $response->Body("Home");
     $response->send();
 });
 ?>
