@@ -1,0 +1,45 @@
+body,
+html {
+  height: 100%;
+  margin: 0;
+  overflow: hidden; /* Prevent scrolling on the entire page */
+}
+.scrollarea {
+  overflow-y: auto; /* Enable vertical scrolling */
+  height: calc(100vh - 56px); /* Adjust height to fit within the viewport */
+  direction: rtl; /* Set direction to right-to-left */
+}
+.scrollarea > * {
+  direction: ltr; /* Reset direction for child elements */
+}
+
+#editor {
+  font-size: 16px;
+  min-height: 300px;
+  height: calc(100vh - 260px); /* Adjust height to fit within the viewport */
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.search-container {
+  position: relative;
+}
+
+.search-input {
+  width: 80%;
+  margin: 10px auto;
+  height: 50px;
+  border-radius: 30px;
+  padding-left: 40px;
+  border: none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.search-icon {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 50%;
+  left: calc(50% - 10px);
+  transform: translateY(-50%);
+  color: #888;
+}
