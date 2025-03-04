@@ -1,5 +1,63 @@
 <?php
 /**
+ * Class Request
+ * Represents an HTTP request.
+ */
+class Request {
+    public $method;
+    public $uri;
+    public $body;
+
+    /**
+     * Request constructor.
+     * @param string $method The HTTP method (GET, POST, etc.).
+     * @param string $uri The request URI.
+     * @param string $body The request body.
+     */
+    public function __construct($method, $uri, $body) {
+        $this->method = $method;
+        $this->uri = $uri;
+        $this->body = $body;
+    }
+}
+
+/**
+ * Class Response
+ * Represents an HTTP response.
+ */
+class Response {
+    private $headers = [];
+    private $body;
+
+    /**
+     * Sets a response header.
+     * @param string $name The name of the header.
+     * @param string $value The value of the header.
+     */
+    public function Header($name, $value) {
+        $this->headers[$name] = $value;
+    }
+
+    /**
+     * Sets the response body.
+     * @param string $body The response body.
+     */
+    public function Body($body) {
+        $this->body = $body;
+    }
+
+    /**
+     * Sends the response to the client.
+     */
+    public function send() {
+        foreach ($this->headers as $name => $value) {
+            header("$name: $value");
+        }
+        echo $this->body;
+    }
+}
+
+/**
  * Class Router
  * A simple router for handling HTTP requests.
  */

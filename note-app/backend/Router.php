@@ -58,16 +58,24 @@ class Response {
 }
 
 /**
- * Class Rooter
+ * Class Router
  * A simple router for handling HTTP requests.
  */
-class Rooter {
+class Router {
     private $routes = [
         'GET' => [],
         'POST' => [],
         'PUT' => [],
-        'DELETE' => []
+        'DELETE' => [],
+        'PATCH' => []
     ];
+
+    /**
+     * Router constructor.
+     */
+    public function __construct() {
+        // No base URI needed
+    }
 
     /**
      * Adds a route to the router.
@@ -81,10 +89,10 @@ class Rooter {
 
     /**
      * Dispatches the request to the appropriate route.
-     * @param string $method The HTTP method.
-     * @param string $uri The request URI.
      */
-    public function dispatch($method, $uri) {
+    public function dispatch() {
+        $method = $_SERVER['REQUEST_METHOD'];
+        $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         $request = new Request($method, $uri, file_get_contents('php://input'));
         $response = new Response();
 
@@ -94,6 +102,13 @@ class Rooter {
             $response->Body("No route found for $method $uri");
             $response->send();
         }
+    }
+
+    /**
+     * Destructor to automatically dispatch the request.
+     */
+    public function __destruct() {
+        $this->dispatch();
     }
 
     /**
@@ -130,6 +145,15 @@ class Rooter {
      */
     public function DELETE($uri, $callback) {
         $this->addRoute('DELETE', $uri, $callback);
+    }
+
+    /**
+     * Adds a PATCH route.
+     * @param string $uri The request URI.
+     * @param callable $callback The callback function to handle the request.
+     */
+    public function PATCH($uri, $callback) {
+        $this->addRoute('PATCH', $uri, $callback);
     }
 }
 ?>

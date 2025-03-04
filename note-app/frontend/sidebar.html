@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <title>Scrollable Menu</title>
+    <style>
+      body,
+      html {
+        height: 100%;
+        margin: 0;
+        overflow: hidden; /* Prevent scrolling on the entire page */
+      }
+      .scrollarea {
+        overflow-y: auto; /* Enable vertical scrolling */
+        height: calc(100vh - 56px); /* Adjust height to fit within the viewport */
+        direction: rtl; /* Set direction to right-to-left */
+      }
+      .scrollarea > * {
+        direction: ltr; /* Reset direction for child elements */
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white" style="width: 360px">
+        <a href="/" class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
+          <span class="fs-5 fw-semibold">List group</span>
+        </a>
+        <div class="list-group list-group-flush border-bottom scrollarea">
+          <!-- ENTRY -->
+          <a href="#" class="list-group-item list-group-item-action active py-3 lh-tight" aria-current="true">
+            <div class="d-flex w-100 align-items-center justify-content-between">
+              <strong class="mb-1">List group item heading</strong>
+              <small>Wed</small>
+            </div>
+            <div class="col-10 mb-1 small">Some placeholder content in a paragraph below the heading and date.</div>
+          </a>
+        </div>
+      </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
