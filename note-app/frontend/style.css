@@ -21,17 +21,19 @@ html {
 }
 
 .search-container {
-  position: relative;
 }
 
 .search-input {
-  width: 80%;
-  margin: 10px auto;
   height: 50px;
   border-radius: 30px;
   padding-left: 40px;
   border: none;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.searchbar-container {
+  width: 80%;
+  margin: 10px auto;
+  position: relative;
 }
 
 .search-icon {
@@ -39,7 +41,17 @@ html {
   height: 20px;
   position: absolute;
   top: 50%;
-  left: 11%;
+  left: 14px;
   transform: translateY(-50%);
   color: #888;
+}
+
+main {
+  padding-left: 8px !important;
+  padding-right: 10px !important;
+}
+
+aside {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
 }

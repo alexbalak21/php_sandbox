@@ -11,6 +11,7 @@
   <body>
     <div class="container-fluid h-100">
       <div class="row h-100">
+        <!-- ASIDE  -->
         <aside class="col-3 d-flex flex-column align-items-stretch flex-shrink-0 bg-white">
           <a href="/" class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
             <span class="fs-5 fw-semibold">Notes</span>
@@ -35,28 +36,36 @@
             </a>
           </div>
         </aside>
+        <!-- END ASIDE -->
+
         <main class="col-9">
+          <!-- SEARCH -->
           <div class="search-container">
-            <input type="text" class="form-control search-input" placeholder="Search..." />
-            <svg
-              class="search-icon"
-              xmlns="http://www.w3.org/2000/svg"
-              width="18"
-              height="18"
-              fill="currentColor"
-              class="bi bi-search"
-              viewBox="0 0 16 16"
-            >
-              <path
-                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"
-              />
-            </svg>
-          </div>
-          <form id="editor-form" method="POST" action="http://localhost:3000/note-app/backend/new">
-            <div class="form-floating mb-3 mt-5">
-              <input name="title" type="text" class="form-control" id="floatingInput" />
-              <label for="floatingInput">Title</label>
+            <div class="searchbar-container">
+              <input type="text" class="form-control search-input" placeholder="Search..." />
+              <svg
+                class="search-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                fill="currentColor"
+                class="bi bi-search"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"
+                />
+              </svg>
             </div>
+          </div>
+
+          <form id="editor-form" method="POST" action="http://localhost:3000/note-app/backend/new">
+            <!-- TITLE CONTAINER -->
+            <div class="form-floating mb-3 mt-4">
+              <input type="text" name="title" class="form-control" id="title" placeholder="name@example.com" />
+              <label for="title">Title</label>
+            </div>
+
             <div id="editor" class="editor-scroll"></div>
 
             <input type="hidden" name="editor-content" id="editor-content" />
