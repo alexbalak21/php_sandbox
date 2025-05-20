@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>collapse</title>
+  </head>
+  <body>
+    <aside class="list" data-collapsed="false">
+      <h3>List</h3>
+    </aside>
+    <div id="collapse"><p><</p></div>
+    <main>
+      <h3>Content</h3>
+    </main>
+  </body>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+    .list {
+      height: 98vh;
+      width: 300px;
+      border: 1px solid blue;
+      transition: width 0.2s ease-in-out;
+    }
+    #collapse {
+      margin-top: auto;
+      margin-bottom: auto;
+    }
+    body {
+      display: flex;
+    }
+    main {
+      border: 1px solid green;
+      width: 100%;
+    }
+  </style>
+  <script>
+    const collapse = document.querySelector("#collapse")
+    const aside = document.querySelector(".list")
+
+    collapse.addEventListener("click", collapse_aside)
+
+    function collapse_aside() {
+      const collapsed = aside.getAttribute("data-collapsed")
+
+      if (collapsed === "true") {
+        aside.style.width = "300px" // Expand back
+        aside.setAttribute("data-collapsed", "false")
+      } else {
+        aside.style.width = "10px"
+        aside.setAttribute("data-collapsed", "true")
+      }
+    }
+  </script>
+</html>
