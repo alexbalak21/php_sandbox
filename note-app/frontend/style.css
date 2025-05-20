@@ -49,9 +49,11 @@ html {
 main {
   padding-left: 8px !important;
   padding-right: 10px !important;
+  width: 75% !important;
 }
 
 aside {
   padding-left: 0 !important;
   padding-right: 0 !important;
+  width: 25% !important;
 }
