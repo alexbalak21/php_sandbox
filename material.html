@@ -3,18 +3,56 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Materialize CSS Showcase</title>
+    <title>Materialize CSS Dark Theme</title>
     <!-- Materialize CSS CDN -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet" />
     <!-- Google Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <style>
+      body {
+        background-color: #121212;
+        color: #e0e0e0;
+      }
+      nav, .page-footer {
+        background-color: #1f1f1f;
+      }
+      .card {
+        background-color: #2c2c2c;
+        color: #e0e0e0;
+      }
+      .card .card-title {
+        color: #ffffff;
+      }
+      .btn, .modal, .collapsible-header {
+        background-color: #333 !important;
+        color: #fff !important;
+      }
+      .modal-content {
+        background-color: #2c2c2c;
+        color: #e0e0e0;
+      }
+      .modal-footer {
+        background-color: #1f1f1f;
+      }
+      input, textarea {
+        color: #fff;
+        border-bottom: 1px solid #888 !important;
+      }
+      label {
+        color: #bbb !important;
+      }
+      .input-field input:focus, .input-field textarea:focus {
+        border-bottom: 1px solid #64b5f6 !important;
+        box-shadow: 0 1px 0 0 #64b5f6 !important;
+      }
+    </style>
   </head>
   <body>
 
     <!-- Navbar -->
     <nav>
-      <div class="nav-wrapper teal">
-        <a href="#!" class="brand-logo center">Materialize Demo</a>
+      <div class="nav-wrapper">
+        <a href="#!" class="brand-logo center">Materialize Dark</a>
         <ul class="right hide-on-med-and-down">
           <li><a href="#"><i class="material-icons">home</i></a></li>
           <li><a href="#"><i class="material-icons">info</i></a></li>
@@ -39,7 +77,7 @@
               <span class="card-title">Card Title</span>
             </div>
             <div class="card-content">
-              <p>This is a sample card using Materialize CSS.</p>
+              <p>This is a sample card using Materialize CSS in dark mode.</p>
             </div>
             <div class="card-action">
               <a href="#">Read More</a>
@@ -96,7 +134,7 @@
       <div id="demo-modal" class="modal">
         <div class="modal-content">
           <h4>Modal Header</h4>
-          <p>This is a modal using Materialize CSS.</p>
+          <p>This is a modal using Materialize CSS in dark theme.</p>
         </div>
         <div class="modal-footer">
           <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
@@ -105,12 +143,12 @@
     </div>
 
     <!-- Footer -->
-    <footer class="page-footer teal">
+    <footer class="page-footer">
       <div class="container">
         <div class="row">
           <div class="col l6 s12">
-            <h5 class="white-text">Materialize Showcase</h5>
-            <p class="grey-text text-lighten-4">This page demonstrates various Materialize CSS components.</p>
+            <h5 class="white-text">Materialize Dark Theme</h5>
+            <p class="grey-text text-lighten-4">This page demonstrates Materialize CSS components in dark mode.</p>
           </div>
         </div>
       </div>
