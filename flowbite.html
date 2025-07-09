@@ -112,13 +112,11 @@
       </table>
     </div>
   
-    <!-- Chart Placeholder -->
+    <!-- Chart Card -->
     <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-      <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">User Growth Chart</h5>
-      <div class="w-full h-40 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center text-gray-400 dark:text-gray-300">
-        [Chart Placeholder]
+        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">User Growth Chart</h5>
+        <canvas id="userChart" class="w-full h-40"></canvas>
       </div>
-    </div>
   </main>
   
   <!-- Flowbite JS -->
@@ -157,6 +155,31 @@ toggleBtn.addEventListener('click', () => {
 });
 
   </script>
+  <!-- Chart.js Script -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const ctx = document.getElementById('userChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+      datasets: [{
+        label: 'Users',
+        data: [12, 19, 30, 24, 17, 22, 14],
+        backgroundColor: 'rgba(59, 130, 246, 0.7)',
+        borderRadius: 6
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { display: false } },
+      scales: {
+        y: { beginAtZero: true, ticks: { color: '#9CA3AF' } },
+        x: { ticks: { color: '#9CA3AF' } }
+      }
+    }
+  });
+</script>
   
 </body>
 </html>
