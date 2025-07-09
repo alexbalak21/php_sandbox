@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Materialize CSS Showcase</title>
+    <!-- Materialize CSS CDN -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet" />
+    <!-- Google Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  </head>
+  <body>
+
+    <!-- Navbar -->
+    <nav>
+      <div class="nav-wrapper teal">
+        <a href="#!" class="brand-logo center">Materialize Demo</a>
+        <ul class="right hide-on-med-and-down">
+          <li><a href="#"><i class="material-icons">home</i></a></li>
+          <li><a href="#"><i class="material-icons">info</i></a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container">
+      <!-- Buttons -->
+      <h5>Buttons</h5>
+      <a class="waves-effect waves-light btn">Default</a>
+      <a class="waves-effect waves-light btn red">Red</a>
+      <a class="btn disabled">Disabled</a>
+
+      <!-- Cards -->
+      <h5>Cards</h5>
+      <div class="row">
+        <div class="col s12 m6">
+          <div class="card">
+            <div class="card-image">
+              <img src="https://picsum.photos/400/200" />
+              <span class="card-title">Card Title</span>
+            </div>
+            <div class="card-content">
+              <p>This is a sample card using Materialize CSS.</p>
+            </div>
+            <div class="card-action">
+              <a href="#">Read More</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <h5>Form</h5>
+      <div class="row">
+        <form class="col s12">
+          <div class="row">
+            <div class="input-field col s6">
+              <input id="first_name" type="text" class="validate" />
+              <label for="first_name">First Name</label>
+            </div>
+            <div class="input-field col s6">
+              <input id="last_name" type="text" class="validate" />
+              <label for="last_name">Last Name</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+              <textarea id="textarea1" class="materialize-textarea"></textarea>
+              <label for="textarea1">Message</label>
+            </div>
+          </div>
+          <button class="btn waves-effect waves-light" type="submit" name="action">
+            Submit
+            <i class="material-icons right">send</i>
+          </button>
+        </form>
+      </div>
+
+      <!-- Collapsible -->
+      <h5>Collapsible</h5>
+      <ul class="collapsible">
+        <li>
+          <div class="collapsible-header"><i class="material-icons">filter_drama</i>First</div>
+          <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+        </li>
+        <li>
+          <div class="collapsible-header"><i class="material-icons">place</i>Second</div>
+          <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+        </li>
+      </ul>
+
+      <!-- Modal Trigger -->
+      <h5>Modal</h5>
+      <a class="waves-effect waves-light btn modal-trigger" href="#demo-modal">Open Modal</a>
+
+      <!-- Modal Structure -->
+      <div id="demo-modal" class="modal">
+        <div class="modal-content">
+          <h4>Modal Header</h4>
+          <p>This is a modal using Materialize CSS.</p>
+        </div>
+        <div class="modal-footer">
+          <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="page-footer teal">
+      <div class="container">
+        <div class="row">
+          <div class="col l6 s12">
+            <h5 class="white-text">Materialize Showcase</h5>
+            <p class="grey-text text-lighten-4">This page demonstrates various Materialize CSS components.</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Materialize JS CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        var elemsModal = document.querySelectorAll('.modal');
+        M.Modal.init(elemsModal);
+
+        var elemsCollapsible = document.querySelectorAll('.collapsible');
+        M.Collapsible.init(elemsCollapsible);
+      });
+    </script>
+  </body>
+</html>
