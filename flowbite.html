@@ -46,16 +46,20 @@
         </svg>
       </span>
   </button>
-  
     </div>
   </nav>
 
-  <!-- Main Content -->
-  <main class="container mx-auto p-6">
-    <h2 class="text-2xl font-semibold mb-4">Welcome to the Flowbite UI Demo</h2>
-    <button class="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 mb-4">
+<!-- Main Content -->
+<main class="container mx-auto p-6 space-y-8">
+    <!-- Header -->
+    <h2 class="text-2xl font-semibold">Welcome to the Flowbite UI Demo</h2>
+  
+    <!-- Primary Button -->
+    <button class="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5">
       Primary Button
     </button>
+  
+    <!-- Card -->
     <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
       <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Card Title</h5>
       <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">This is a simple card component using Flowbite and Tailwind CSS.</p>
@@ -66,8 +70,57 @@
         </svg>
       </a>
     </div>
+  
+    <!-- Stats Card -->
+    <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+      <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Users This Week</h5>
+      <p class="text-3xl font-bold text-gray-900 dark:text-white">32.4k</p>
+      <p class="text-green-500 dark:text-green-400 font-medium mt-2">+12% from last week</p>
+    </div>
+  
+    <!-- File List Table -->
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 border border-gray-200 dark:border-gray-700 rounded-lg">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <tr>
+            <th scope="col" class="px-6 py-3">File Name</th>
+            <th scope="col" class="px-6 py-3">Size</th>
+            <th scope="col" class="px-6 py-3">User</th>
+            <th scope="col" class="px-6 py-3">Date Added</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="bg-white dark:bg-gray-800">
+            <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">Flowbite Pro Terms.pdf</td>
+            <td class="px-6 py-4">18 MB</td>
+            <td class="px-6 py-4">Roberta Casas</td>
+            <td class="px-6 py-4">Today</td>
+          </tr>
+          <tr class="bg-gray-50 dark:bg-gray-700">
+            <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">HeroImage.jpg</td>
+            <td class="px-6 py-4">5.6 MB</td>
+            <td class="px-6 py-4">Bonnie Green</td>
+            <td class="px-6 py-4">1 day ago</td>
+          </tr>
+          <tr class="bg-white dark:bg-gray-800">
+            <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">ProjectPresentation.ppt</td>
+            <td class="px-6 py-4">5 MB</td>
+            <td class="px-6 py-4">Michael Gough</td>
+            <td class="px-6 py-4">3 days ago</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <!-- Chart Placeholder -->
+    <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+      <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">User Growth Chart</h5>
+      <div class="w-full h-40 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center text-gray-400 dark:text-gray-300">
+        [Chart Placeholder]
+      </div>
+    </div>
   </main>
-
+  
   <!-- Flowbite JS -->
   <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
 
