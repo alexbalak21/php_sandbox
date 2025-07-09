@@ -1,25 +1,26 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Flowbite Dark/Light Mode Demo</title>
 
-  <!-- Tailwind Config: Enable dark mode via class -->
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Tailwind Config -->
   <script>
     tailwind.config = {
       darkMode: 'class',
       theme: {
         extend: {
           transitionProperty: {
-            'colors': 'background-color, border-color, color, fill, stroke'
+            colors: 'background-color, border-color, color, fill, stroke'
           }
         }
       }
     };
   </script>
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
 
   <!-- Flowbite CSS -->
   <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
@@ -32,12 +33,8 @@
     <div class="container mx-auto flex justify-between items-center">
       <h1 class="text-xl font-bold">Flowbite Demo</h1>
       <button id="theme-toggle" type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 p-2 rounded-lg">
-        <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-          <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
-        </svg>
-        <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-          <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0z"></path>
-        </svg>
+        <span id="theme-toggle-dark-icon" class="text-xl">🌙</span>
+        <span id="theme-toggle-light-icon" class="hidden text-xl">☀️</span>
       </button>
     </div>
   </nav>
@@ -45,13 +42,9 @@
   <!-- Main Content -->
   <main class="container mx-auto p-6">
     <h2 class="text-2xl font-semibold mb-4">Welcome to the Flowbite UI Demo</h2>
-
-    <!-- Button -->
     <button class="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 mb-4">
       Primary Button
     </button>
-
-    <!-- Card -->
     <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
       <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Card Title</h5>
       <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">This is a simple card component using Flowbite and Tailwind CSS.</p>
@@ -67,29 +60,39 @@
   <!-- Flowbite JS -->
   <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
 
-  <!-- Dark Mode Toggle Script -->
+  <!-- Toggle Script -->
   <script>
-    const toggleBtn = document.getElementById('theme-toggle');
-    const darkIcon = document.getElementById('theme-toggle-dark-icon');
-    const lightIcon = document.getElementById('theme-toggle-light-icon');
+  const toggleBtn = document.getElementById('theme-toggle');
+    const darkIcon = document.getElementById('theme-toggle-dark-icon'); // 🌙 to activate dark
+    const lightIcon = document.getElementById('theme-toggle-light-icon'); // ☀️ to activate light
 
-    // Set initial icon
-    if (document.documentElement.classList.contains('dark')) {
-      darkIcon.classList.remove('hidden');
-      lightIcon.classList.add('hidden');
-    } else {
-      darkIcon.classList.add('hidden');
-      lightIcon.classList.remove('hidden');
-    }
+function updateIcon(isDarkMode) {
+  if (isDarkMode) {
+    darkIcon.classList.add('hidden');       // hide moon
+    lightIcon.classList.remove('hidden');   // show sun
+  } else {
+    darkIcon.classList.remove('hidden');    // show moon
+    lightIcon.classList.add('hidden');      // hide sun
+  }
+}
 
-    toggleBtn.addEventListener('click', () => {
-      const isDark = document.documentElement.classList.contains('dark');
-      document.documentElement.classList.toggle('dark');
-      localStorage.setItem('color-theme', isDark ? 'light' : 'dark');
+// Determine initial theme
+let storedTheme = localStorage.getItem('color-theme');
+let isDark = storedTheme === 'dark' || (!storedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches);
 
-      darkIcon.classList.toggle('hidden');
-      lightIcon.classList.toggle('hidden');
-    });
+document.documentElement.classList.toggle('dark', isDark);
+updateIcon(isDark);
+
+// Toggle theme on click
+toggleBtn.addEventListener('click', () => {
+  isDark = !document.documentElement.classList.contains('dark');
+  document.documentElement.classList.toggle('dark', isDark);
+  localStorage.setItem('color-theme', isDark ? 'dark' : 'light');
+  updateIcon(isDark);
+  console.log("Theme switched to:", isDark ? 'dark' : 'light');
+});
+
   </script>
+  
 </body>
 </html>
