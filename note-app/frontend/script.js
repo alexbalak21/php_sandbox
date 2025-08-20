@@ -35,5 +35,4 @@ append_item(2)
 
 const aside = document.querySelector("aside")
 const main = document.querySelector("main")
-aside.style.width = "50%"
-main.style.width = "50%"
+fmain.style.width = "50%"

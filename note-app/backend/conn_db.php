@@ -1,8 +1,8 @@
 <?php
 $servername = "localhost";
-$username = "backend";
-$password = "Azerty1239*";
-$dbname = "notes";
+$username = "root";
+$password = "";
+$dbname = "quill";
 
 // Define the DSN (Data Source Name)
 $dsn = "mysql:host=$servername;dbname=$dbname";
@@ -17,4 +17,3 @@ try {
 }
 
 return $db;
-?>
