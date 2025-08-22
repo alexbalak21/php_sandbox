@@ -11,4 +11,6 @@ $dompdf->loadHtml($htmlContent);
 $dompdf->setPaper('A4', 'portrait');
 $dompdf->render();
 
+
+//Attachment : true = force download or false = open in browser
 $dompdf->stream('sample.pdf', ['Attachment' => true]);
